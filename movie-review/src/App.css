@@ -1,5 +1,15 @@
+
+.h1{
+  font-size: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #050404;
+}
+
 .popular-movies {
   margin-bottom: 20px;
+  font-size: 40px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: rgb(8, 8, 8);
 }
 
 .movie-grid {

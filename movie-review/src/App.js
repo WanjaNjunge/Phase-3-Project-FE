@@ -38,8 +38,8 @@ function App() {
 
   return (
     <BrowserRouter>
-      <div>
-        <h1>Review Movies</h1>
+      <div className="container" > 
+        <h1 className="h1">FLIX Movies</h1>
 
         <form onSubmit={handleSearchSubmit}>
           <input
