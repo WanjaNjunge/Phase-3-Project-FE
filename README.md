@@ -1,24 +1,20 @@
-# Phase-3-Project-FE
 
-## Introduction:
+In this Project, we have three models: User, Movie, and Review. Our model for the file is as follows:
 
-For this project, we utilized a movie API that would allow a user to create an account (sign up), log in, have access to movies, search for specific movies and leave a review.
 
-## Authors:
+Movies to Reviews: Many reviews can be written for a single movie, and a review can be associated with multiple movies. This relationship represents the reviews given by users for different movies. (many-to-many relationship).
 
-1. [Noah Mwangi](https://github.com/Mwangi-Noah)
-2. [Stephanie Wanja](https://github.com/WanjaNjunge)
-3. [Nicholas Musau](https://github.com/0maddox)
-4. [Steve Kariuki](https://github.com/NoobStevie)
+A review is associated with a user, and a user can have multiple reviews (one-to-many relationship)
 
-## Description:
+A movie can be associated with multiple users and a user can have multiple movies.(Many to Many Relationship)
 
-For this project, we created a universal dream for everyone which is:
-1. Having access to movies
-2. Looking up their favorite movies
+Features
 
-## Programming Languages Used:
-1. Ruby
-2. React
-3. SQL
-4. JavaScript
+Real-time search results The web app uses JavaScript to display search results. The search results are fetched from our ruby back-end and displayed in a grid layout.
+
+Filter movies by genre and release year The web app allows users to filter movies by genre and release year using dropdown menus. 
+
+Our Ruby back-end fetches the movie data from the TMDb API.
+
+Display search results on the page The web app uses JavaScript to display search results on the page. The search results are displayed in a grid layout using HTML and CSS. Each search result displays the movie poster, title, release date, and overview.
+
