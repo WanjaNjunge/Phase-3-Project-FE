@@ -3,7 +3,12 @@ import { signUp } from "../api";
 
 const SignUpForm = () => {
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
+
+  const handleNameChange = (event) => {
+    setName(event.target.value);
+  };
 
   const handleEmailChange = (event) => {
     setEmail(event.target.value);
@@ -20,6 +25,7 @@ const SignUpForm = () => {
     signUp({ email, password })
       .then(() => {
         // Clear the form inputs
+        setName("")
         setEmail("");
         setPassword("");
       })
@@ -30,6 +36,15 @@ const SignUpForm = () => {
     <div>
       <h2>Sign Up</h2>
       <form onSubmit={handleSubmit}>
+      <div>
+          <label htmlFor="name">Name:</label>
+          <input
+            type="name"
+            id="name"
+            value={name}
+            onChange={handleNameChange}
+          />
+        </div>
         <div>
           <label htmlFor="email">Email:</label>
           <input

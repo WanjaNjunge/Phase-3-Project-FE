@@ -16,13 +16,13 @@ export function getMovies() {
     .then((response) => response.json());
 }
 
-export function createMovie(movieData) {
-  return fetch(`${API_BASE_URL}/movies`, {
+export function createReview(reviewData) {
+  return fetch(`${API_BASE_URL}/reviews`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(movieData),
+    body: JSON.stringify(reviewData),
   })
     .then((response) => response.json());
 }

@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import LoginForm from "./components/LoginForm";
 import MovieList from "./components/MovieList";
-import MovieForm from "./components/MovieForm";
-import { login, getMovies, createMovie } from "./api";
+import ReviewForm from "./components/ReviewForm";
+import { login, getMovies, createReview } from "./api";
 
 const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
@@ -30,10 +30,10 @@ const App = () => {
     setLoggedIn(false);
   };
 
-  const handleCreateMovie = (movieData) => {
-    createMovie(movieData)
+  const handleCreateReview = (reviewData) => {
+    createReview(reviewData)
       .then((data) => {
-        // Add the created movie to the list
+        // Add the created review to the list
         setMovies([...movies, data]);
       })
       .catch((error) => console.log(error));
@@ -47,7 +47,7 @@ const App = () => {
         <>
           <h2>Movie List</h2>
           <MovieList movies={movies} />
-          <MovieForm onCreateMovie={handleCreateMovie} />
+          <ReviewForm onCreateReview={handleCreateReview} />
           <button onClick={handleLogout}>Logout</button>
         </>
       )}

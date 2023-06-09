@@ -5,6 +5,7 @@ import "./LoginForm.css";
 const LoginForm = ({ onLogin }) => {
   const [formType, setFormType] = useState("login");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [password, setPassword] = useState("");
 
   const handleFormToggle = () => {
@@ -30,6 +31,15 @@ const LoginForm = ({ onLogin }) => {
     <div className="login-form">
       <h2>{formType === "login" ? "Login" : "Sign Up"}</h2>
       <form onSubmit={handleSubmit}>
+        <label>
+          Name:
+          <input
+            type="name"
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            required
+          />
+        </label>
         <label>
           Email:
           <input
