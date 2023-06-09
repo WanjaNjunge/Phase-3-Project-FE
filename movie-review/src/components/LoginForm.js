@@ -1,77 +1,80 @@
 import React, { useState } from "react";
-import { signUp, login } from "../api";
-import "./LoginForm.css";
+import { login, signUp } from "../api";
 
 const LoginForm = ({ onLogin }) => {
   const [formType, setFormType] = useState("login");
-  const [email, setEmail] = useState("");
   const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const handleFormToggle = () => {
-    setFormType(formType === "login" ? "signup" : "login");
-  };
+  const [confirmPassword, setConfirmPassword] = useState(""); // Add this line
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const credentials = { email, password };
-
     if (formType === "login") {
-      login(credentials)
-        .then(() => onLogin())
-        .catch((error) => console.log(error));
-    } else {
-      signUp(credentials)
-        .then(() => onLogin())
-        .catch((error) => console.log(error));
+      login(name, email, password)
+        .then((user) => {
+          // Handle successful login
+          onLogin(user);
+        })
+        .catch((error) => {
+          // Handle login error
+          console.error("Login error:", error);
+        });
+    } else if (formType === "signup") {
+      signUp(name, email, password)
+        .then((user) => {
+          // Handle successful sign-up
+          onLogin(user);
+        })
+        .catch((error) => {
+          // Handle sign-up error
+          console.error("Sign-up error:", error);
+        });
     }
   };
 
   return (
-    <div className="login-form">
+    <div>
       <h2>{formType === "login" ? "Login" : "Sign Up"}</h2>
       <form onSubmit={handleSubmit}>
-        <label>
-          Name:
-          <input
-            type="name"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-          />
-        </label>
-        <label>
-          Email:
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-          />
-        </label>
-        <br />
-        <label>
-          Password:
+        {/* Form fields */}
+        <input
+          type="name"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          placeholder="Name"
+          required
+        />
+        <input
+          type="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          placeholder="Email"
+          required
+        />
+        <input
+          type="password"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+          placeholder="Password"
+          required
+        />
+        {/* Additional form fields for sign-up */}
+        {formType === "signup" && (
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+            placeholder="Confirm Password"
             required
           />
-        </label>
-        <div>
-            <input  type="checkbox" value="remember-me" />
-            <label for="flexCheckDefault">
-                Remember me
-            </label>
-        </div>
-        <br />
+        )}
+        {/* Form buttons */}
         <button type="submit">{formType === "login" ? "Login" : "Sign Up"}</button>
+        <button type="button" onClick={() => setFormType(formType === "login" ? "signup" : "login")}>
+          {formType === "login" ? "Switch to Sign Up" : "Switch to Login"}
+        </button>
       </form>
-      <p>
-        {formType === "login" ? "Don't have an account?" : "Already have an account?"}
-        <button onClick={handleFormToggle}>{formType === "login" ? "Sign Up" : "Login"}</button>
-      </p>
     </div>
   );
 };
