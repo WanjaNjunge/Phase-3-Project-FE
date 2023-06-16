@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import './LoginForm.css';
 
 const LoginForm = () => {
   const [name, setName] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -17,11 +20,11 @@ const LoginForm = () => {
       });
 
       if (response.ok) {
-        // Login successful, perform any necessary actions
-        console.log('Login successful');
+        // Login successful
+        navigate('/home');
       } else {
         // Login failed, handle error
-        console.error('Login failed');
+        console.error('Login failed, Kubaffiliated');
       }
     } catch (error) {
       console.error('Error logging in:', error);
@@ -29,7 +32,7 @@ const LoginForm = () => {
   };
 
   return (
-    <div>
+    <div className="login-form">
       <h1>Login</h1>
       <form onSubmit={handleLogin}>
         <div>
@@ -41,6 +44,9 @@ const LoginForm = () => {
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         </div>
         <button type="submit">Login</button>
+        <p>
+          Don't have an account? <Link to="/register">Register</Link>
+        </p>
       </form>
     </div>
   );
