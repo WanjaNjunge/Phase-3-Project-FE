@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import "./RegistrationForm.css"
 
-const RegistrationForm = () => {
+const RegistrationForm = ({ loadLoginForm }) => {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleRegistration = async (e) => {
     e.preventDefault();
@@ -14,12 +16,13 @@ const RegistrationForm = () => {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name, email, password }),
+        body: JSON.stringify({ name, password }),
       });
 
       if (response.ok) {
         // Registration successful, perform any necessary actions
         console.log('Registration successful');
+        navigate('/'); // Redirect to the login page
       } else {
         // Registration failed, handle error
         console.error('Registration failed');
@@ -30,16 +33,12 @@ const RegistrationForm = () => {
   };
 
   return (
-    <div>
-      <h1>Registration</h1>
+    <div className="registration-form">
+      <h2>Registration</h2>
       <form onSubmit={handleRegistration}>
         <div>
-          <label>Name:</label>
+          <label>Username:</label>
           <input type="text" value={name} onChange={(e) => setName(e.target.value)} />
-        </div>
-        <div>
-          <label>Email:</label>
-          <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
         </div>
         <div>
           <label>Password:</label>

@@ -1,39 +1,36 @@
-import React, { useState } from "react";
-import { createReview } from "../api";
+import React from 'react';
 
-const ReviewForm = () => {
-  const [comment, setComment] = useState("");
+const API_URL = 'http://localhost:9292/reviews'; // Replace with your API endpoint
 
-  const handleCommentChange = (event) => {
-    setComment(event.target.value);
-  };
+const ReviewForm = ({ movieId, onReviewAdded }) => {
+  const handleReviewClick = async () => {
+    const reviewText = prompt('Enter your review:');
+    if (reviewText) {
+      try {
+        const response = await fetch(API_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ movieId, reviewText }),
+        });
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Create a new review
-    createReview({ comment })
-      .then(() => {
-        // Clear the form inputs
-        setComment("");
-      })
-      .catch((error) => console.log(error));
+        if (response.ok) {
+          // Review added successfully
+          onReviewAdded(movieId, reviewText);
+        } else {
+          // Review addition failed, handle error
+          console.error('Failed to add review');
+        }
+      } catch (error) {
+        console.error('Error adding review:', error);
+      }
+    }
   };
 
   return (
     <div>
-      <h2>Add a Review</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor="comment">Comment:</label>
-          <textarea
-            id="comment"
-            value={comment}
-            onChange={handleCommentChange}
-          />
-        </div>
-        <button type="submit">Add Review</button>
-      </form>
+      <button onClick={handleReviewClick}>Add Review</button>
     </div>
   );
 };
